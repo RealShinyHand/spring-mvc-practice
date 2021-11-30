@@ -11,7 +11,10 @@ public class BaseController implements ErrorController {
     public String root(){
         return "index";
     }
-    @RequestMapping("/error")
+
+    //ErrorController 인터페이스 구현해줘야 error 페이지가 오류없이 작동 ,
+    //엡 프로퍼티 파일에서도 설정 추가해야함 .
+    @RequestMapping("/error-custom")
     public String error(){
         return "error";
     }
