@@ -6,10 +6,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class BaseController implements ErrorController {
+public class BaseController {
     @GetMapping("/")
-    public String root(){
-        return "index";
+    public String root() throws Exception {
+        throw new Exception("test");
+
     }
 
     //ErrorController 인터페이스 구현해줘야 error 페이지가 오류없이 작동 ,
