@@ -1,9 +1,7 @@
 package com.skj2393.springmvcpractice.exception;
 
 import com.skj2393.springmvcpractice.controller.constant.ErrorCode;
-import lombok.Getter;
 
-@Getter
 public class GeneralException extends RuntimeException {
 
     private final ErrorCode errorCode;
@@ -48,4 +46,7 @@ public class GeneralException extends RuntimeException {
         this.errorCode = ErrorCode.INTERNAL_ERROR;
     }
 
+    public ErrorCode getErrorCode() {
+        return this.errorCode;
+    }
 }

@@ -1,5 +1,10 @@
 package com.skj2393.springmvcpractice.controller.api;
 
+import com.skj2393.springmvcpractice.controller.constant.ErrorCode;
+import com.skj2393.springmvcpractice.dto.APIErrorResponse;
+import com.skj2393.springmvcpractice.exception.GeneralException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -12,12 +17,14 @@ public class APIEventController {
 
     @GetMapping("/event")
     public List<String> getEvents(){
-        return Collections.unmodifiableList(Arrays.asList("event1","event2"));
+        throw new GeneralException("테스트 메세지");
+       // return Collections.unmodifiableList(Arrays.asList("event1","event2"));
     }
 
     @PostMapping("/event")
     public Boolean createEvent(){
-        return true;
+        throw  new RuntimeException("런타임 에러");
+        //return true;
     }
 
 
@@ -35,4 +42,12 @@ public class APIEventController {
     public Boolean deleteEvent(@PathVariable Integer eventId){
         return true;
     }
+    //글로벌 하게 제작했으니깐 주석처리
+//    @ExceptionHandler
+//    public ResponseEntity<APIErrorResponse> general(GeneralException e){
+//        ErrorCode ec = e.getErrorCode();
+//        HttpStatus status = ec.isClientSideError() ? HttpStatus.BAD_REQUEST:HttpStatus.INTERNAL_SERVER_ERROR;
+//
+//        return ResponseEntity.status(status).body(APIErrorResponse.of(false,ec,ec.getMessage(e)));
+//    }
 }
