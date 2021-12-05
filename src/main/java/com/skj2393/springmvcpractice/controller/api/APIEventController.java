@@ -5,7 +5,9 @@ import com.skj2393.springmvcpractice.dto.APIErrorResponse;
 import com.skj2393.springmvcpractice.exception.GeneralException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.resource.HttpResource;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -16,8 +18,8 @@ import java.util.List;
 public class APIEventController {
 
     @GetMapping("/event")
-    public List<String> getEvents(){
-        throw new GeneralException("테스트 메세지");
+    public List<String> getEvents() throws HttpRequestMethodNotSupportedException {
+        throw new HttpRequestMethodNotSupportedException("스프링 405 에러 테스트 ");
        // return Collections.unmodifiableList(Arrays.asList("event1","event2"));
     }
 
