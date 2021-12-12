@@ -11,6 +11,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 public class APIDataResponse<T> extends APIErrorResponse {
 
+
     private final T data;
 
     private APIDataResponse(T data) {
@@ -18,8 +19,14 @@ public class APIDataResponse<T> extends APIErrorResponse {
         this.data = data;
     }
 
+
     public static <T> APIDataResponse<T> of(T data) {
-        return new APIDataResponse<T>(data);
+        return new APIDataResponse<>(data);
+    }
+
+
+    public static <T> APIDataResponse<T> empty() {
+        return new APIDataResponse<>(null);
     }
 
 }
