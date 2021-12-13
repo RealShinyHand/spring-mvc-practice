@@ -3,6 +3,7 @@ package com.skj2393.springmvcpractice.controller.api;
 import com.skj2393.springmvcpractice.controller.constant.PlaceType;
 import com.skj2393.springmvcpractice.dto.APIDataResponse;
 import com.skj2393.springmvcpractice.dto.PlaceDTO;
+import com.skj2393.springmvcpractice.dto.PlaceResponse;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -13,17 +14,17 @@ import java.util.List;
 @RestController
 public class APIPlaceController {
 
-//    @GetMapping("/places")
-//    public APIDataResponse<List<PlaceDTO>> getPlaces() {
-//        return APIDataResponse.of(List.of(PlaceDTO.of(
-//                PlaceType.COMMON,
-//                "랄라배드민턴장",
-//                "서울시 강남구 강남대로 1234",
-//                "010-1234-5678",
-//                "신장개업",
-//                30
-//        )));
-//    }
+    @GetMapping("/places")
+    public APIDataResponse<List<PlaceResponse>> getPlaces() {
+        return APIDataResponse.of(List.of(PlaceResponse.of(
+                PlaceType.COMMON,
+                "랄라배드민턴장",
+                "서울시 강남구 강남대로 1234",
+                "010-1234-5678",
+                "신장개업",
+                30
+        )));
+    }
 
     @PostMapping("/places")
     public Boolean createPlace() {
@@ -31,21 +32,21 @@ public class APIPlaceController {
     }
 
 
-//    @GetMapping("/places/{placeId}")
-//    public APIDataResponse<PlaceDTO> getPlace(@PathVariable Integer placeId) {
-//
-//        if(placeId.equals(2)){
-//            return APIDataResponse.of(null);
-//        }
-//        return APIDataResponse.of(PlaceDTO.of(
-//                PlaceType.COMMON,
-//                "랄라배드민턴장",
-//                "서울시 강남구 강남대로 1234",
-//                "010-1234-5678",
-//                "신장개업",
-//                30
-//        ));
-//    }
+    @GetMapping("/places/{placeId}")
+    public APIDataResponse<PlaceDTO> getPlace(@PathVariable Integer placeId) {
+
+        if(placeId.equals(2)){
+            return APIDataResponse.of(null);
+        }
+        return APIDataResponse.of(PlaceDTO.of(
+                PlaceType.COMMON,
+                "랄라배드민턴장",
+                "서울시 강남구 강남대로 1234",
+                "010-1234-5678",
+                "신장개업",
+                30
+        ));
+    }
 
     @PutMapping("/places/{placeId}")
     public Boolean modifyPlace(@PathVariable Integer placeId) {

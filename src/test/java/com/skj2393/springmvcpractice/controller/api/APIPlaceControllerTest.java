@@ -1,5 +1,6 @@
 package com.skj2393.springmvcpractice.controller.api;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.skj2393.springmvcpractice.controller.constant.ErrorCode;
 import com.skj2393.springmvcpractice.controller.constant.PlaceType;
 import org.junit.jupiter.api.DisplayName;
@@ -16,26 +17,35 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(APIPlaceController.class)
 class APIPlaceControllerTest {
     private final MockMvc mvc;
-
-    public APIPlaceControllerTest(@Autowired MockMvc mvc){
+    private final ObjectMapper mapper;
+    public APIPlaceControllerTest(@Autowired MockMvc mvc,@Autowired ObjectMapper mapper)
+    {
         this.mvc = mvc;
+        this.mapper = mapper;
     }
-    @DisplayName("[API][GET] 장소 리스트 조회")
+
+    @DisplayName("[API][GET] 장소 리스트 조회- 장소 리스트를 담은 표준 api 출력")
     @Test
-    public void givenNothing_whenRequestingPlaces_thenReturnListOfPlacesInStandardResponse() throws Exception{
+    void givenNothing_whenRequestingPlaces_thenReturnPlacesInStandardResponse() throws Exception {
+        //given
         mvc.perform(get("/api/places"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$.success").value(true))
+                .andExpect(jsonPath("$.errorCode").value(ErrorCode.OK.getCode()))
+                .andExpect(jsonPath("$.message").value(ErrorCode.OK.getMessage()))
                 .andExpect(jsonPath("$.data").isArray())
                 .andExpect(jsonPath("$.data[0].placeType").value(PlaceType.COMMON.name()))
                 .andExpect(jsonPath("$.data[0].placeName").value("랄라배드민턴장"))
                 .andExpect(jsonPath("$.data[0].address").value("서울시 강남구 강남대로 1234"))
                 .andExpect(jsonPath("$.data[0].phoneNumber").value("010-1234-5678"))
                 .andExpect(jsonPath("$.data[0].capacity").value(30))
-                .andExpect(jsonPath("$.data[0].memo").value("신장개업"))
-                .andExpect(jsonPath("$.success").value(true))
-                .andExpect(jsonPath("$.errorCode").value(ErrorCode.OK.getCode()))
-                .andExpect(jsonPath("$.message").value(ErrorCode.OK.getMessage()));
+                .andExpect(jsonPath("$.data[0].memo").value("신장개업"));
+
+
+
+
+        //when & Then
     }
 
     @DisplayName("[API][GET] 단일 장소 조회 -장소 있는 경우 ")
